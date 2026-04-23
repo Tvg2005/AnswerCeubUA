@@ -12,12 +12,12 @@ Siga este passo a passo cuidadosamente antes de iniciar o robô pela primeira ve
    - No Chrome: Acesse `chrome://extensions/` e ative o botão "Modo do desenvolvedor" no canto superior direito.
 3. Clique no ícone da extensão Tampermonkey e verifique se a opção **Habilitar scripts de usuários** ("Enable Tampermonkey") está ativada.
 
-### Passo 2: Configurar o Motor Inteligente (OpenRouter)
-As questões são respondidas consultando a IA por meio da plataforma OpenRouter, que possui diversos modelos inteligentes gratuitos e de altíssima resposta:
-1. Acesse o site do [OpenRouter](https://openrouter.ai/).
-2. Crie a sua conta (ou faça login com o Google).
-3. Vá no menu `Keys` para Criar e Copiar a sua respectiva **Chave da API** (API Key).
-4. Em seguida no site do OpenRouter navegue em `Chat` ou `Models` para decidir os identificadores exatos do seu modelo, recomendamos utilizarem os gratuitos como por exemplo: `tencent/hy3-preview:free` ou até mesmo o gemini como `google/gemini-1.5-flash:free`.
+### Passo 2: Configurar o Motor Inteligente (Google Gemini)
+As questões são respondidas consultando a IA Native do Google (Gemini). Ela oferece 1500 requisições gratuitas sem bloquear seu uso.
+1. Acesse o portal do desenvolvedor do [Google AI Studio](https://aistudio.google.com/app/apikey).
+2. Faça login com a sua conta Google (pode ser a mesma conta pessoal).
+3. Localize e clique no botão **"Create API Key"** (Criar chave de API).
+4. Copie a chave (API Key) gigantesca gerada para a próxima etapa.
 
 ### Passo 3: Inserir o Código
 1. Na barra do seu navegador, clique no ícone da extensão Tampermonkey.
@@ -26,8 +26,8 @@ As questões são respondidas consultando a IA por meio da plataforma OpenRouter
 4. Abra o arquivo `scripttampermonkey.js` presente neste repositório. Confirme que ele seja a Versão 4.0 (que contorna iframes com perfeição). Copie o conteúdo inteiro e cole no seu Tampermonkey.
 5. Edite as variáveis no topo do script colado e coloque suas chaves recolhidas no passo 2:
    ```javascript
-   const API_KEY = "SUA_API_KEY_GERADA_NO_OPEN_ROUTER_AQUI";
-   const MODELO = "AQUI_VEM_O_NOME_DO_MODELO"; // (ex: tencent/hy3-preview:free)
+   const API_KEY = "SUA_CHAVE_DO_GOOGLE_API_STUDIO_AQUI";
+   const MODELO = "gemini-1.5-flash"; // Você pode mudar caso queria versões mais robustas depois
    ```
 6. Salve apertando `Ctrl + S` ou Indo em  `Arquivo > Salvar`.
 
