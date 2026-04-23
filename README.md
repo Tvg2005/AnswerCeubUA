@@ -12,12 +12,12 @@ Siga este passo a passo cuidadosamente antes de iniciar o robô pela primeira ve
    - No Chrome: Acesse `chrome://extensions/` e ative o botão "Modo do desenvolvedor" no canto superior direito.
 3. Clique no ícone da extensão Tampermonkey e verifique se a opção **Habilitar scripts de usuários** ("Enable Tampermonkey") está ativada.
 
-### Passo 2: Configurar o Motor Inteligente (DeepSeek)
-As questões são respondidas consultando a IA Native do DeepSeek. Ela oferece endpoints de altíssima eficiência e custo-benefício incrível.
-1. Acesse o portal do desenvolvedor da DeepSeek em [platform.deepseek.com](https://platform.deepseek.com/).
+### Passo 2: Configurar o Motor Inteligente (OpenAI / ChatGPT)
+As questões serão processadas pela fantástica IA da criadora do ChatGPT (OpenAI).
+1. Acesse a plataforma oficial para desenvolvedores da OpenAI em: [platform.openai.com](https://platform.openai.com/).
 2. Crie a sua conta (ou faça login).
-3. Vá no menu esquerdo `API Keys` e clique em **"Create new API Key"**.
-4. Copie a chave gerada. Não será possível vê-la novamente!
+3. Vá no menu lateral **"API Keys"** e clique em **"Create new secret key"**.
+4. Anote e copie essa chave gerada começada com (sk-...). Não será possível vê-la novamente!
 
 ### Passo 3: Inserir o Código
 1. Na barra do seu navegador, clique no ícone da extensão Tampermonkey.
@@ -26,8 +26,8 @@ As questões são respondidas consultando a IA Native do DeepSeek. Ela oferece e
 4. Abra o arquivo `scripttampermonkey.js` presente neste repositório. Confirme que ele seja a Versão 4.0 (que contorna iframes com perfeição). Copie o conteúdo inteiro e cole no seu Tampermonkey.
 5. Edite as variáveis no topo do script colado e coloque suas chaves recolhidas no passo 2:
    ```javascript
-   const API_KEY = "SUA_CHAVE_DO_DEEPSEEK_AQUI";
-   const MODELO = "deepseek-chat"; 
+   const API_KEY = "SUA_CHAVE_DA_OPENAI_AQUI";
+   const MODELO = "gpt-4o-mini"; // Ou gpt-4o se você tiver acesso premium
    ```
 6. Salve apertando `Ctrl + S` ou Indo em  `Arquivo > Salvar`.
 
