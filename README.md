@@ -1,6 +1,6 @@
 # Robô das UAs - Extensão Automática (CEUB)
 
-Este é um script de automação (Userscript) focado em auxiliar e avançar automaticamente pelos exercícios presentes nas plataformas baseadas no sistema Sagah, como as UAs (Unidades Avaliativas) do CEUB. Ele utiliza o Tampermonkey e uma Inteligência Artificial por meio da API do OpenRouter para selecionar respostas nativamente imitando comportamento de usuário real, desviando assim da grande maioria dos bloqueios anti-robôs.
+Este é um script de automação (Userscript) focado em auxiliar e avançar automaticamente pelos exercícios presentes nas plataformas baseadas no sistema Sagah, como as UAs (Unidades Avaliativas) do CEUB. Ele utiliza o Tampermonkey e uma Inteligência Artificial por meio da API Nativa do DeepSeek para selecionar respostas nativamente imitando comportamento de usuário real, desviando assim da grande maioria dos bloqueios anti-robôs.
 
 ## ⚙️ Pré-requisitos e Instalação
 
@@ -12,12 +12,12 @@ Siga este passo a passo cuidadosamente antes de iniciar o robô pela primeira ve
    - No Chrome: Acesse `chrome://extensions/` e ative o botão "Modo do desenvolvedor" no canto superior direito.
 3. Clique no ícone da extensão Tampermonkey e verifique se a opção **Habilitar scripts de usuários** ("Enable Tampermonkey") está ativada.
 
-### Passo 2: Configurar o Motor Inteligente (OpenRouter)
-As questões são respondidas consultando a IA por meio da plataforma OpenRouter, que possui diversos modelos inteligentes gratuitos e de altíssima resposta:
-1. Acesse o site do [OpenRouter](https://openrouter.ai/).
-2. Crie a sua conta (ou faça login com o Google).
-3. Vá no menu `Keys` para Criar e Copiar a sua respectiva **Chave da API** (API Key).
-4. Em seguida no site do OpenRouter navegue em `Chat` ou `Models` para decidir os identificadores exatos do seu modelo, recomendamos utilizarem os gratuitos como por exemplo: `tencent/hy3-preview:free` ou até mesmo o gemini como `google/gemini-1.5-flash:free`.
+### Passo 2: Configurar o Motor Inteligente (DeepSeek)
+As questões são respondidas consultando a IA Native do DeepSeek. Ela oferece endpoints de altíssima eficiência e custo-benefício incrível.
+1. Acesse o portal do desenvolvedor da DeepSeek em [platform.deepseek.com](https://platform.deepseek.com/).
+2. Crie a sua conta (ou faça login).
+3. Vá no menu esquerdo `API Keys` e clique em **"Create new API Key"**.
+4. Copie a chave gerada. Não será possível vê-la novamente!
 
 ### Passo 3: Inserir o Código
 1. Na barra do seu navegador, clique no ícone da extensão Tampermonkey.
@@ -26,8 +26,8 @@ As questões são respondidas consultando a IA por meio da plataforma OpenRouter
 4. Abra o arquivo `scripttampermonkey.js` presente neste repositório. Confirme que ele seja a Versão 4.0 (que contorna iframes com perfeição). Copie o conteúdo inteiro e cole no seu Tampermonkey.
 5. Edite as variáveis no topo do script colado e coloque suas chaves recolhidas no passo 2:
    ```javascript
-   const API_KEY = "SUA_API_KEY_GERADA_NO_OPEN_ROUTER_AQUI";
-   const MODELO = "AQUI_VEM_O_NOME_DO_MODELO"; // (ex: tencent/hy3-preview:free)
+   const API_KEY = "SUA_CHAVE_DO_DEEPSEEK_AQUI";
+   const MODELO = "deepseek-chat"; 
    ```
 6. Salve apertando `Ctrl + S` ou Indo em  `Arquivo > Salvar`.
 
