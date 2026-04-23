@@ -7,14 +7,15 @@
 // @match        *://*.grupoa.education/*
 // @match        *://*.sagah.com.br/*
 // @grant        GM_xmlhttpRequest
-// @connect      openrouter.ai
+// @grant        GM_xmlhttpRequest
+// @connect      generativelanguage.googleapis.com
 // ==/UserScript==
 
 (function () {
     'use strict';
 
-    const API_KEY = "API_KEY";
-    const MODELO = "MODELO";
+    const API_KEY = "CHAVE_API"; // ← Cole sua chave do Google AI Studio aqui
+    const MODELO = "gemini-2.5-flash";
 
     // ─── INJETA O BOTÃO NA PÁGINA PAI ────────────────────────────────────────
     // O botão fica na página principal (ceub-edu), que não tem CSP bloqueando o fetch.
@@ -65,46 +66,71 @@
         return null;
     }
 
-    // ─── CHAMA A IA (fetch no contexto pai, sem bloqueio de iframe) ──────────
-    function chamarIA(texto) {
+    // ─── CHAMA A IA (fetch no contexto pai, usando Gemini Nativo) ──────────
+    function chamarIA(texto, tentativas = 0) {
         return new Promise((resolve) => {
+            if (tentativas > 3) {
+                console.error("[Robô UA] Desistindo após 3 tentativas.");
+                resolve("");
+                return;
+            }
+
             GM_xmlhttpRequest({
                 method: "POST",
-                url: "https://openrouter.ai/api/v1/chat/completions",
+                url: `https://generativelanguage.googleapis.com/v1beta/models/${MODELO}:generateContent?key=${API_KEY}`,
                 timeout: 20000,
                 headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": "Bearer " + API_KEY
+                    "Content-Type": "application/json"
                 },
                 data: JSON.stringify({
-                    model: MODELO,
-                    messages: [{
-                        role: "user",
-                        content:
-                            "Você é um assistente de provas. Leia o exercício abaixo e responda APENAS com a letra correta (A, B, C, D ou E). Nenhuma explicação, nenhuma frase, só a letra.\n\n" + texto
+                    "contents": [{
+                        "parts": [{
+                            "text": "Você é um assistente de provas acadêmicas. Leia a seguinte questão.\nSua única função na vida é retornar UMA LETRA correspondente à resposta correta (A, B, C, D ou E).\nNenhuma palavra além da letra.\n\n" + texto
+                        }]
                     }]
                 }),
-                onload: function (res) {
+                onload: async function (res) {
+                    if (res.status !== 200) {
+                        console.warn("[Robô UA] Erro de Status Google Gemini:", res.status, res.responseText);
+                        setStatus("🔄 Rede ocupada (" + res.status + "), tentando dnv...", "#ff9800");
+                        await new Promise(r => setTimeout(r, 2000));
+                        resolve(await chamarIA(texto, tentativas + 1));
+                        return;
+                    }
+
                     try {
                         let json = JSON.parse(res.responseText);
-                        let bruto = json.choices[0].message.content.trim().toUpperCase();
-                        console.log("[Robô UA] IA disse:", bruto);
+                        let bruto = json.candidates[0].content.parts[0].text.trim().toUpperCase();
+                        console.log("[Robô UA] Resposta Completa do Gemini:", bruto);
 
-                        // Extrai a primeira letra A-E que aparecer
                         let match = bruto.match(/\b([A-E])\b/) || bruto.match(/([A-E])/);
-                        resolve(match ? match[1] : "");
+
+                        if (match) {
+                            resolve(match[1]);
+                        } else {
+                            console.warn("[Robô UA] Formato bizarro de resposta:", bruto);
+                            setStatus("🔄 Resposta bizarra. Retentando...", "#ff9800");
+                            await new Promise(r => setTimeout(r, 1500));
+                            resolve(await chamarIA(texto, tentativas + 1));
+                        }
                     } catch (e) {
-                        console.error("[Robô UA] Erro ao parsear resposta:", e);
-                        resolve("");
+                        console.error("[Robô UA] Erro interno ao quebrar JSON do Gemini:", e, res.responseText);
+                        setStatus("🔄 Falha visual. Retentando...", "#ff9800");
+                        await new Promise(r => setTimeout(r, 1500));
+                        resolve(await chamarIA(texto, tentativas + 1));
                     }
                 },
-                onerror: function (e) {
-                    console.error("[Robô UA] Erro de rede:", e);
-                    resolve("");
+                onerror: async function (e) {
+                    console.error("[Robô UA] Falha Grave de Rede do Google:", e);
+                    setStatus("🔄 Falha da Net. Retentando...", "#ff9800");
+                    await new Promise(r => setTimeout(r, 2000));
+                    resolve(await chamarIA(texto, tentativas + 1));
                 },
-                ontimeout: function () {
-                    console.warn("[Robô UA] Timeout na IA");
-                    resolve("");
+                ontimeout: async function () {
+                    console.warn("[Robô UA] O Google Gemini estourou o tempo limite.");
+                    setStatus("🔄 Timeout na IA. Retentando...", "#ff9800");
+                    await new Promise(r => setTimeout(r, 2000));
+                    resolve(await chamarIA(texto, tentativas + 1));
                 }
             });
         });
