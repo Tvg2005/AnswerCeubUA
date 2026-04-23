@@ -1,4 +1,4 @@
-# Robô das UAs - Extensão Automática (CEUB / Sagah)
+# Robô das UAs - Extensão Automática (CEUB)
 
 Este é um script de automação (Userscript) focado em auxiliar e avançar automaticamente pelos exercícios presentes nas plataformas baseadas no sistema Sagah, como as UAs (Unidades Avaliativas) do CEUB. Ele utiliza o Tampermonkey e uma Inteligência Artificial por meio da API do OpenRouter para selecionar respostas nativamente imitando comportamento de usuário real, desviando assim da grande maioria dos bloqueios anti-robôs.
 
@@ -33,7 +33,7 @@ As questões são respondidas consultando a IA por meio da plataforma OpenRouter
 
 ## 🚀 Como Utilizar
 
-1. Faça Login normalmente na plataforma educacional CEUB / Sagah. O script nunca é ativado fora das telas correspondentes então fique à vontade.
+1. Faça Login normalmente na plataforma educacional CEUB. O script nunca é ativado fora das telas correspondentes então fique à vontade.
 2. Adentre sua grade, selecione a matéria em vigor.
 3. No menu esquerdo, navegue exatamente até a seção lateral **"Exercícios"**.
 4. Repare no canto inferior direito. Mágico! Agora você terá um Botão Verde **"🤖 Resolver UA"**.
