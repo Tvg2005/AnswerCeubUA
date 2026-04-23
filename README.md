@@ -27,7 +27,7 @@ As questões são respondidas consultando a IA Native do Google (Gemini). Ela of
 5. Edite as variáveis no topo do script colado e coloque suas chaves recolhidas no passo 2:
    ```javascript
    const API_KEY = "SUA_CHAVE_DO_GOOGLE_API_STUDIO_AQUI";
-   const MODELO = "gemini-1.5-flash"; // Você pode mudar caso queria versões mais robustas depois
+   const MODELO = "gemini-2.5-flash"; // Você pode mudar caso queria versões mais robustas depois
    ```
 6. Salve apertando `Ctrl + S` ou Indo em  `Arquivo > Salvar`.
 
